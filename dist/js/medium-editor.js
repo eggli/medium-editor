@@ -115,7 +115,8 @@ if (typeof module === 'object') {
             extensions: {},
             activeButtonClass: 'medium-editor-button-active',
             firstButtonClass: 'medium-editor-button-first',
-            lastButtonClass: 'medium-editor-button-last'
+            lastButtonClass: 'medium-editor-button-last',
+            staticToolbarClass: '.medium-editor-static-toolbar'
         },
 
         // http://stackoverflow.com/questions/17907445/how-to-detect-ie11#comment30165888_17907562
@@ -414,6 +415,7 @@ if (typeof module === 'object') {
             this.anchorInput = this.anchorForm.querySelector('input');
             this.toolbarActions = this.toolbar.querySelector('.medium-editor-toolbar-actions');
             this.anchorPreview = this.createAnchorPreview();
+            this.staticToolbar = document.querySelector(this.options.staticToolbarClass);
 
             return this;
         },
@@ -676,6 +678,14 @@ if (typeof module === 'object') {
             for (i = 0; i < buttons.length; i += 1) {
                 buttons[i].addEventListener('click', triggerAction);
             }
+            if(this.staticToolbar){
+                var staticButtons = this.staticToolbar.querySelectorAll('button');
+
+                for (i = 0; i < staticButtons.length; i += 1) {
+                    staticButtons[i].addEventListener('click', triggerAction);
+                }
+                
+            }            
             this.setFirstAndLastItems(buttons);
             return this;
         },
